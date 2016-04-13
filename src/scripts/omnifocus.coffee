@@ -12,14 +12,6 @@
 #   hubot add task - receive status
 
 module.exports = (robot) ->
-  robot.hear /token (.*)/i, (msg) ->
-    user_and_pass = msg.match[1]
-    auth = 'Basic ' + new Buffer(user_and_pass).toString('base64');
-    msg.http("https://service-bot.herokuapp.com/token")
-      .headers(Authorization: auth, Accept: 'application/json')
-      .get() (err, res, body) ->
-          msg.send body
-
   robot.hear /task (.*)/i, (msg) ->
     service_url = process.env.OMNIFOCUS_ADD_TASK_URL
     token = process.env.SERVICE_BOT_TOKEN
